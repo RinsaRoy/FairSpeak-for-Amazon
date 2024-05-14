@@ -1,0 +1,91 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+<main id="main">
+  <section id="analysisResults" class="analysis-results">
+    <div class="container" data-aos="fade-up">
+      <div class="section-title">
+        <h2>Analysis Results</h2>
+      </div>
+      <div class="result-container">
+        <h2 class="text-center mb-4">Sentiment Analysis Result</h2>
+        <div class="result-summary">
+          <p class="text-center mb-3"><strong>Review Text:</strong></p>
+          <!-- Add class="text-center" to align the review text to the center -->
+          <p class="review-text text-center">{{ review_text }}</p>
+        </div>
+        <div class="result-details">
+          <p class="text-center mb-3"><strong>Sentiment:</strong><br>
+            {% if sentiment.label == "POSITIVE" %}
+              Positive<br>
+              <img src="{% static 'assets/img/positive.png' %}" alt="Positive" style="max-width: 50px;">
+            {% elif sentiment.label == "NEGATIVE" %}
+              Negative<br>
+              <img src="{% static 'assets/img/negative.png' %}" alt="Negative" style="max-width: 50px;">
+            {% else %}
+              Neutral<br>
+              <img src="{% static 'assets/img/neutral.png' %}" alt="Neutral" style="max-width: 50px;">
+            {% endif %}
+          </p>
+          <!-- Add styling for the score -->
+          <div class="score-container text-center mb-3">
+            <strong>Score:</strong>
+            <div class="score">{{ sentiment.score }}</div>
+          </div>
+        </div>
+        <div class="text-center mt-5">
+          <a href="{% url 'analysis' %}" class="btn btn-dark btn-analyze">Analyze Another Text</a>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+<style>
+/* Add custom styling for the results page */
+.analysis-results {
+  padding: 80px 0;
+}
+
+.result-container {
+  background-color: #f9f9f9;
+  border-radius: 10px;
+  padding: 40px;
+  box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.1);
+}
+
+.result-summary {
+  border-bottom: 1px solid #ccc;
+  padding-bottom: 20px;
+  margin-bottom: 30px;
+}
+
+.review-text {
+  font-size: 18px;
+  line-height: 1.6;
+}
+
+.result-details {
+  margin-bottom: 30px;
+}
+
+.btn-analyze {
+  font-size: 16px;
+  padding: 12px 30px;
+  border-radius: 30px;
+  transition: background-color 0.3s ease-in-out;
+}
+
+.btn-analyze:hover {
+  background-color: #3ab19e;
+}
+
+.score-container {
+  font-size: 24px;
+}
+
+.score {
+  font-weight: bold;
+  color: #3ab19e; /* Change color according to sentiment */
+}
+</style>
+{% endblock %}

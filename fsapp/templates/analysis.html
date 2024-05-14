@@ -1,0 +1,146 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+<style>
+  body, html {
+    height: 100%;
+    margin: 0;
+    background-color: #ffffff; /* Set white background color for the whole page */
+  }
+  .container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column; /* Align contents vertically */
+    height: 100%;
+  }
+  .input-container {
+    width: 70%;
+    max-width: 800px;
+    background-color: rgba(58,177,158,255);
+    border-radius: 10px; /* Add border radius for rounded corners */
+    padding: 20px; /* Add padding for spacing */
+    box-shadow: 0 4px 6px rgba(58,177,158,255); /* Add box shadow for depth */
+    margin-top: 20px; /* Add margin to separate from the heading */
+  }
+  .input-area {
+    border: 1px solid #3ab19e;
+    border-radius: 0.25rem;
+    min-height: 200px; /* Set a minimum height */
+    padding: 10px;
+    font-size: 16px;
+    line-height: 1.5;
+    outline: none;
+    overflow-y: auto; /* Enable vertical scrolling */
+    background-color: #ffffff; /* Set white background color for the input area */
+    resize: vertical; /* Allow vertical resizing */
+  }
+  
+  .input-area::placeholder {
+    color: grey;
+  }
+
+  .benefits-container {
+    text-align: center;
+    margin-top: 20px;
+  }
+  
+  .benefit-item {
+    display: inline-block;
+    margin: 10px;
+    text-align: center;
+    vertical-align: top;
+    width: 30%;
+  }
+  
+  .benefit-icon {
+    width: 40px;
+    height: 40px;
+    margin-bottom: 10px;
+    display: inline-block;
+    vertical-align: middle;
+  }
+
+  .benefit-text {
+    display: inline-block;
+    vertical-align: middle;
+    margin-left: 10px;
+  }
+</style>
+
+<main id="main">
+  <section id="analysis" class="analysis">
+    <div class="container" data-aos="fade-up">
+      <div class="section-title">
+        <h2>Analysis</h2>
+      </div>
+      <div class="input-container">
+        <h2 class="text-center mb-4">Amazon Review Analysis</h2>
+        <p class="text-center mb-3">Use sentiment analysis to quickly detect feelings and pain points</p>
+        <form method="post" action="{% url 'analysis' %}">
+          {% csrf_token %}
+          <textarea class="input-area form-control" id="review_text" name="review_text" rows="7" placeholder="Paste your review statement here..."></textarea>
+          <div class="text-center mt-3">
+            <button type="submit" class="btn btn-dark" id="analyzeButton" name="analyzeButton">Analyze</button>
+            {% if error_message %}
+            <p style="color: red;">{{ error_message }}</p>
+            {% endif %}
+            <div id="loadingSpinner" style="display: none;">
+              <img src="{% static 'assets/img/loading.gif' %}" alt="Loading..." width="50" height="50">
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </section>
+</main>
+
+  <div class="benefits-container">
+    <h3>How can sentiment analysis help you</h3>
+    <div class="benefit-item">
+      <img src="{% static 'assets/img/check.png' %}" class="benefit-icon">
+      <span class="benefit-text">Learn the topics your clients are most happy or unhappy about.</span>
+    </div>
+    <div class="benefit-item">
+      <img src="{% static 'assets/img/check.png' %}" class="benefit-icon">
+      <span class="benefit-text">Identify pain-points and detect patterns in client needs and behavior.</span>
+    </div>
+    <div class="benefit-item">
+      <img src="{% static 'assets/img/check.png' %}" class="benefit-icon">
+      <span class="benefit-text">Quickly detect negative feedback and take action instantly.</span>
+    </div>
+  </div>
+</div>
+<div id="analysisResults" class="text-center mt-3"></div>
+</section>
+</main>
+
+{% endblock %}
+
+<!-- Ensure the JavaScript code is loaded within the block -->
+{% block extrascripts %}
+  <script>
+    document.addEventListener("DOMContentLoaded", function() {
+      var currentUrl = window.location.href;
+      var links = document.querySelectorAll("#navbar ul li a");
+
+      links.forEach(function(link) {
+          if (link.href === currentUrl) {
+              link.classList.add("active");
+          } else {
+              link.classList.remove("active");
+          }
+      });
+  });
+
+      document.addEventListener("DOMContentLoaded", function() {
+        var analyzeButton = document.getElementById("analyzeButton");
+        var loadingSpinner = document.getElementById("loadingSpinner");
+    
+        analyzeButton.addEventListener("click", function() {
+          // Show loading spinner while analysis is in progress
+          loadingSpinner.style.display = "block";
+        });
+      });
+  </script>
+{% endblock %}

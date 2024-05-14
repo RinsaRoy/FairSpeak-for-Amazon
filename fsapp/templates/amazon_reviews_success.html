@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block content %}
+<style>
+    .container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      flex-direction: column;
+    }
+  </style>
+<div class="container">
+    <h2>Reviews Successfully Saved</h2>
+    <p>The reviews have been successfully saved to a CSV file named "{{ filename }}".</p>
+    <p><a href="{% url 'bulkreview' %}" style="color: rgba(58,177,158,255);">Proceed to Amazon Product Insights</a></p>
+</div>
+{% endblock %}

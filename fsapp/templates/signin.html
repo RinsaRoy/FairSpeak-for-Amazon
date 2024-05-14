@@ -1,0 +1,67 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+<style>
+  body, html {
+    height: 100%;
+    margin: 0;
+    background-image: url('fairbg.jpg'); /* Replace 'fairbg.jpg' with the path to your background image */
+    background-size: cover;
+  }
+  .container {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .card {
+    background-color: rgba(255, 255, 255, 0.3); /* Adjust the transparency as needed */
+    width: 100%; /* Adjust the width as needed */
+    max-width: 1000px; /* Set a maximum width for responsiveness */
+    padding: 30px;
+  }
+  .card-body {
+    padding: 0; 
+  }
+  .form-label {
+    margin-bottom: 10px;
+  }
+  .form-control {
+    margin-bottom: 20px;
+    width: 100%;
+  }
+
+  .register-link {
+    color: black; /* Set the color of the link */
+    text-decoration: none; /* Remove the underline */
+  }
+</style>
+<section id="hero" class="d-flex align-items-center">
+<div class="container">
+    <div class="row justify-content-center">
+      <div class="col-lg-12">
+        <div class="card">
+          <div class="card-body">
+            <h2 class="text-center mb-4">Sign In</h2>
+            <form method="post" action="{% url 'signin' %}">
+              {% csrf_token %}
+              <div class="mb-3">
+                <label for="email" class="form-label">Email:</label>
+                <input type="text" id="email" name="email" class="form-control" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" required>
+              </div>
+              <div class="mb-3">
+                <label for="password" class="form-label">Password:</label>
+                <input type="text" id="password" name="password" class="form-control" pattern="(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}" required>
+              </div>
+              <div class="d-grid">
+                <button type="submit" class="btn btn-dark">Sign In</button>
+              </div><br>
+              <p class="text-center">New to FairSpeak?<br> <a href="{% url 'signup' %}" class="register-link">Sign Up Now</a></p>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+</div>
+</section>
+{% endblock %}

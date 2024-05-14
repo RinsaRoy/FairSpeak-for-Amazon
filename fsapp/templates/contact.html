@@ -1,0 +1,81 @@
+{% extends "base.html" %}
+{% block content %}
+<style>
+    .container {
+        padding: 20px;
+        text-align: center; /* Align content to center */
+    }
+    .form-group {
+        margin-bottom: 20px;
+        text-align: left; /* Align form labels to left */
+    }
+    label {
+        font-weight: bold;
+    }
+    input[type="text"],
+    input[type="email"],
+    textarea {
+        width: 100%;
+        padding: 10px;
+        border-radius: 5px;
+        border: 1px solid #ccc;
+        resize: none;
+    }
+    textarea {
+        height: 150px;
+    }
+    .btn {
+        padding: 10px 20px;
+        background-color: #343a40; /* Dark color for button */
+        color: #fff;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+    }
+    .btn:hover {
+        background-color: #23272b; /* Darker color on hover */
+    }
+</style>
+<section id="contact" class="contact">
+    <div class="container" data-aos="fade-up">
+      <div class="section-title">
+        <h2>Contact</h2>
+      </div>
+    <p>Please fill out the form below to send us your comments, suggestions, feedbacks or concerns.</p>
+    <form action="{% url 'send_feedback' %}" method="post">
+            {% csrf_token %}
+        <div class="form-group">
+            <label for="name">Your Name:</label>
+            <input type="text" id="name" name="name" required>
+        </div>
+        <div class="form-group">
+            <label for="email">Your Email:</label>
+            <input type="email" id="email" name="email" required>
+        </div>
+        <div class="form-group">
+            <label for="message">Message:</label>
+            <textarea id="message" name="message" required></textarea>
+        </div>
+        <button type="submit" class="btn">Send Feedback</button> <!-- Dark button -->
+    </form>
+</div>
+</section>
+{% endblock %}
+
+{% block extrascripts %}
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        var currentUrl = window.location.href;
+        var links = document.querySelectorAll("#navbar ul li a");
+
+        links.forEach(function(link) {
+            if (link.href === currentUrl) {
+                link.classList.add("active");
+            } else {
+                link.classList.remove("active");
+            }
+        });
+    });
+</script>
+{% endblock %}

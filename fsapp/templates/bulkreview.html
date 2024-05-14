@@ -1,0 +1,153 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+
+<style>
+  body, html {
+    height: 100%;
+    margin: 0;
+    background-color: #ffffff; /* Set white background color for the whole page */
+  }
+  .container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column; /* Align contents vertically */
+    height: 100%;
+  }
+  .input-container {
+    width: 70%;
+    max-width: 800px;
+    background-color: rgba(58,177,158,255);
+    border-radius: 10px; /* Add border radius for rounded corners */
+    padding: 20px; /* Add padding for spacing */
+    box-shadow: 0 4px 6px rgba(58,177,158,255); /* Add box shadow for depth */
+    margin-top: 20px; /* Add margin to separate from the heading */
+  }
+
+  /* Center-align form elements */
+  form {
+    text-align: center;
+  }
+  
+  /* Center-align label */
+  .upload-label {
+    display: block;
+    margin-bottom: 10px; /* Add margin to separate from the input field */
+  }
+
+  /* Center-align input field */
+  input[type="file"] {
+    display: block;
+    margin: 0 auto; /* Center horizontally */
+  }
+
+  /* Center-align button */
+  .btn-dark {
+    display: block;
+    margin: 20px auto; /* Center horizontally with some space at the top and bottom */
+  }
+
+  .error-message {
+    color: red;
+    margin-top: 5px;
+  }
+
+  .benefits-container {
+    text-align: center;
+    margin-top: 20px;
+  }
+  
+  .benefit-item {
+    display: inline-block;
+    margin: 10px;
+    text-align: center;
+    vertical-align: top;
+    width: 30%;
+  }
+  
+  .benefit-icon {
+    width: 40px;
+    height: 40px;
+    margin-bottom: 10px;
+    display: inline-block;
+    vertical-align: middle;
+  }
+
+  .benefit-text {
+    display: inline-block;
+    vertical-align: middle;
+    margin-left: 10px;
+  }
+    /* Add custom styling for messages */
+  .messages {
+      list-style: none;
+      padding: 0;
+  }
+
+  .messages li {
+      margin-bottom: 5px;
+      font-weight: bold;
+  }
+
+  /* Style for error messages */
+  .messages .error {
+      color: black;
+}
+  
+</style>
+
+<main id="main">
+    <section id="bulkreview" class="bulkreview">
+      <div class="container" data-aos="fade-up">
+        <div class="section-title">
+          <h2>Product Insights</h2>
+        </div>
+        <div class="input-container">
+          <h2 class="text-center mb-4">Amazon Product Insights</h2>
+          <form id="bulkReviewForm" method="post" action="{% url 'bulkreview' %}" enctype="multipart/form-data">
+            {% csrf_token %}
+            <label for="csv_file" class="upload-label">Upload a CSV file to be analysed</label>
+            <input type="file" name="csv_file" id="csv_file" accept=".csv">
+            {% if messages %}
+            <ul class="messages">
+                {% for message in messages %}
+                <li class="{{ message.tags }}">{{ message }}</li>
+                {% endfor %}
+            </ul>
+            {% endif %}
+            <button type="submit" class="btn btn-dark">Upload</button>
+            {% if error_message %}
+            <p class="error-message">{{ error_message }}</p>
+            {% endif %}
+            <div id="loadingSpinner" style="display: none;">
+                <img src="{% static 'assets/img/loading.gif' %}" alt="Loading..." width="50" height="50">
+              </div>
+          </form>
+        </div>
+      </div>
+    </section>
+  </main>
+
+<div class="benefits-container">
+  <h3>How can sentiment analysis help you</h3>
+  <div class="benefit-item">
+    <img src="{% static 'assets/img/check.png' %}" class="benefit-icon">
+    <span class="benefit-text">Learn the topics your clients are most happy or unhappy about.</span>
+  </div>
+  <div class="benefit-item">
+    <img src="{% static 'assets/img/check.png' %}" class="benefit-icon">
+    <span class="benefit-text">Identify pain-points and detect patterns in client needs and behavior.</span>
+  </div>
+  <div class="benefit-item">
+    <img src="{% static 'assets/img/check.png' %}" class="benefit-icon">
+    <span class="benefit-text">Quickly detect negative feedback and take action instantly.</span>
+  </div>
+</div>
+
+</div>
+<div id="analysisResults" class="text-center mt-3"></div>
+</section>
+</main>
+
+{% endblock %}

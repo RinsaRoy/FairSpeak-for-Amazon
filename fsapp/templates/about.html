@@ -1,0 +1,75 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+
+<main id="main">
+  <!-- ======= About Section ======= -->
+  <section id="about" class="about">
+    <div class="container" data-aos="fade-up">
+      <div class="section-title">
+        <h2>About</h2>
+      </div>
+      <div class="row">
+        <div class="section-title">
+          <h4>Key Features of FairSpeak</h4>
+        </div>
+        <div class="col-lg-6">
+          <div class="card text-center">
+            <img src="{% static 'assets/img/sabg.webp' %}" class="card-img-top" width="150" height="350">
+            <div class="card-body">
+              <h5 class="card-title">Sentiment Generation</h5>
+              <p class="card-text">FairSpeak employs advanced natural language processing models to generate sentiment labels for review statements, aiding in understanding the emotional tone of feedback.</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-6">
+          <div class="card text-center">
+            <img src="{% static 'assets/img/sentiment_generation.jpg' %}" class="card-img-top" width="150" height="350">
+            <div class="card-body">
+              <h5 class="card-title">Score Prediction</h5>
+              <p class="card-text">FairSpeak predicts sentiment scores for review statements, providing users with quantitative assessments of feedback sentiment ranging from negative to positive.</p>
+            </div>
+          </div>
+        </div><br><br><br> <!-- Add extra line breaks for spacing -->
+
+        <div class="col-lg-6">
+          <div class="card text-center">
+            <img src="{% static 'assets/img/csv.jpg' %}" class="card-img-top" width="150" height="350">
+            <div class="card-body">
+              <h5 class="card-title">Amazon URL Scraping and CSV Conversion</h5>
+              <p class="card-text">FairSpeak simplifies the process of gathering valuable consumer insights by extracting Amazon product URLs and transforming the associated reviews into structured CSV files, facilitating comprehensive analysis and decision-making.</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-6">
+          <div class="card text-center">
+            <img src="{% static 'assets/img/bulk.png' %}" class="card-img-top" width="150" height="350">
+            <div class="card-body">
+              <h5 class="card-title">Product Analysis from CSV</h5>
+              <p class="card-text">FairSpeak allows users to upload CSV files containing Amazon product reviews for analysis. It predicts the general sentiment, total reviews, and number of positive and negative reviews for the specified product.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+  </div>
+  </section>
+
+</main>
+{% endblock %}
+
+{% block extrascripts %}
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        var currentUrl = window.location.href;
+        var links = document.querySelectorAll("#navbar ul li a");
+
+        links.forEach(function(link) {
+            if (link.href === currentUrl) {
+                link.classList.add("active");
+            } else {
+                link.classList.remove("active");
+            }
+        });
+    });
+</script>
+{% endblock %}

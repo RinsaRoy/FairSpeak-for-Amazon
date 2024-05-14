@@ -1,0 +1,93 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+<main id="main">
+    <section id="analysisResults" class="analysis-results">
+      <div class="container" data-aos="fade-up">
+        <div class="section-title">
+          <h2>Analysis Results</h2>
+        </div>
+        <div class="result-container" style="text-align: center;" data-aos="fade-up">
+          <h2 class="text-center mb-4">Product Insights</h2>
+          {% if product_name %}
+          Product Name: <span style="color: #3ab19e; font-weight: bold">{{ product_name }}</span><br>
+          {% endif %}
+          {% if product_image %}
+          <img src="{{ product_image }}" alt="Product Image" style="max-width: 200px;">
+          {% endif %}
+          <p>General Sentiment of the Product: 
+          {% if general_sentiment  == "POSITIVE" %}
+          <span style="color: #3ab19e; font-weight: bold">POSITIVE</span><br>
+          <img src="{% static 'assets/img/positive.png' %}" alt="Positive" style="max-width: 50px;">
+        {% elif general_sentiment == "NEGATIVE" %}
+          <span style="color: #3ab19e; font-weight: bold">NEGATIVE</span><br>
+          <img src="{% static 'assets/img/negative.png' %}" alt="Negative" style="max-width: 50px;">
+        {% else %}
+          <span style="color: #3ab19e; font-weight: bold">NEUTRAL</span><br>
+          <img src="{% static 'assets/img/neutral.png' %}" alt="Neutral" style="max-width: 50px;">
+        {% endif %}</p>
+          <p>Total Reviews:  <span style="color: #3ab19e; font-weight: bold">{{ total_reviews }}</p>
+          <p>Number of Positive Reviews: <span style="color: #3ab19e; font-weight: bold"> {{ positive_reviews }}</span></p>
+          <p>Number of Negative Reviews:  <span style="color: #3ab19e; font-weight: bold">{{ negative_reviews }}</span></p>
+
+          
+          {% if csv_file_name %}
+            <img src="{{ csv_file_name }}" alt="Uploaded Image">
+          {% endif %}
+          
+          <div class="text-center mt-5">
+            <a href="{% url 'bulkreview' %}" class="btn btn-dark btn-analyze">Analyze Another Product </a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+<style>
+/* Add custom styling for the results page */
+.analysis-results {
+  padding: 80px 0;
+}
+
+.result-container {
+  background-color: #f9f9f9;
+  border-radius: 10px;
+  padding: 40px;
+  box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.1);
+}
+
+.result-summary {
+  border-bottom: 1px solid #ccc;
+  padding-bottom: 20px;
+  margin-bottom: 30px;
+}
+
+.review-text {
+  font-size: 18px;
+  line-height: 1.6;
+}
+
+.result-details {
+  margin-bottom: 30px;
+}
+
+.btn-analyze {
+  font-size: 16px;
+  padding: 12px 30px;
+  border-radius: 30px;
+  transition: background-color 0.3s ease-in-out;
+}
+
+.btn-analyze:hover {
+  background-color: #3ab19e;
+}
+
+.score-container {
+  font-size: 24px;
+}
+
+.score {
+  font-weight: bold;
+  color: #3ab19e; /* Change color according to sentiment */
+}
+</style>
+{% endblock %}

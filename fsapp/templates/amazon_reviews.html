@@ -1,0 +1,102 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+<style>
+  body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+  }
+  
+  .form-container {
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    width: 70%; /* Adjusted width */
+    text-align: center;
+    margin: 0 auto; /* Center horizontally */
+    margin-top: 100px; /* Adjust top margin as needed */
+  }
+
+  h1 {
+    margin-bottom: 20px;
+    color: #333333;
+  }
+
+  p {
+    font-size: 20px; /* Increased font size */
+  }
+
+  label {
+    font-weight: bold;
+    font-size: 16px;
+    color: #333333;
+    margin-bottom: 8px;
+    display: block;
+    text-align: left;
+  }
+
+  input[type="text"] {
+    width: calc(100% - 20px);
+    padding: 10px;
+    margin-top: 8px;
+    margin-bottom: 16px;
+    border: 1px solid #cccccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+  }
+
+  button[type="submit"] {
+    background-color: rgba(58,177,158,255);
+    color: white;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
+    width: 100%;
+  }
+
+  button[type="submit"]:hover {
+    background-color: rgba(38, 137, 118, 255);
+  }
+</style>
+
+<main id="main">
+  <section id="scraper" class="scraper">
+    <div class="section-title">
+      <h2>Scrape Reviews</h2>
+      <br>
+      <p>Enter an Amazon product URL below to scrape its reviews and convert them into a CSV file.</p>
+    </div>
+    <div class="form-container" data-aos="fade-up">
+      <h2>Amazon Reviews Scraper</h2>
+      <form method="post">
+        {% csrf_token %}
+        <label for="amazon_url">Enter Amazon Product URL:</label>
+        <input type="text" id="amazon_url" name="amazon_url" placeholder="https://www.amazon.com/product-url">
+        <button type="submit">Generate CSV</button>
+      </form>
+    </div>
+  </section>
+</main>
+{% endblock %}
+
+{% block extrascripts %}
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        var currentUrl = window.location.href;
+        var links = document.querySelectorAll("#navbar ul li a");
+
+        links.forEach(function(link) {
+            if (link.href === currentUrl) {
+                link.classList.add("active");
+            } else {
+                link.classList.remove("active");
+            }
+        });
+    });
+</script>
+{% endblock %}
